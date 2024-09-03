@@ -35,3 +35,11 @@ def import_csv(data_file, filename):
                 entry["movement"] = get_movement_id(column)
                 entry["average_metric"] = record.split(",")[col_index]
             data_file["data"].append(entry)
+
+def generate_data_file(filename):
+    data_file = {
+            "key": movements,
+            "data": []
+            }
+    with open(filename, "w") as f:
+        f.write(json.dumps(data_file))
