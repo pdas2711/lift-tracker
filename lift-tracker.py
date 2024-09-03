@@ -1,20 +1,21 @@
 import json
 
-exercises = {
-                "1": {
+movements = {
+                "0": {
                     "name": "Incline Bench Smith",
                     "group": "Chest"
                     },
-                "2": {
+                "1": {
                     "name": "Seated Pec",
                     "group": "Chest"
                     }
                 }
 
 def get_movement_id(movement):
-    for index in exercises:
-        if exercises[index] == movement:
+    for index in movements:
+        if movements[index]["name"] == movement:
             return index
+    return None
 
 def import_csv(data_file, filename):
     with open(filename, "r") as f:
