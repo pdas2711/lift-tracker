@@ -13,9 +13,8 @@
 	},
 	"data": [
 		{
-			"id": 1,
 			"date": "2024/08/28",
-			"exercise": "1",
+			"movement": "1",
 			"average_weight": 31,
 			"sets": [
 				{
