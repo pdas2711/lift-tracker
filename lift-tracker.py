@@ -50,23 +50,23 @@ data_filename = "data.json"
 if argv[1] == "new":
     generate_data_file(data_filename)
 elif argv[1] == "import":
-    set_category = False
+    set_group = False
     set_location = False
-    category = None
+    group = None
     location = None
     for arg in argv:
-        if set_category:
-            category = arg
-            set_category = False
+        if set_group:
+            group = arg
+            set_group = False
         elif set_location:
             location = arg
             set_location = False
-        if arg == "--category":
-            set_category = True
+        if arg == "--group":
+            set_group = True
         elif arg == "--location":
             set_location = True
-    if not category:
-        category = input("Category: ")
+    if not group:
+        group = input("Group: ")
     if not location:
         location = input("Location: ")
     with open(data_filename, "r") as f:
