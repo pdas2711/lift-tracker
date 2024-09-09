@@ -12,7 +12,7 @@ movements = {
                     }
                 }
 
-def get_movement_id(movement):
+def get_movement_id(movements, movement):
     for index in movements:
         if movements[index]["name"] == movement:
             return index
@@ -33,13 +33,14 @@ def import_csv(data_file, filename):
             if column == "DATE":
                 entry["date"] = column
             else:
-                entry["movement"] = get_movement_id(column)
+                entry["movement"] = get_movement_id(data_file["movements"], column)
                 entry["average_metric"] = record.split(",")[col_index]
             data_file["data"].append(entry)
 
 def generate_data_file(filename):
     data_file = {
-            "key": movements,
+            "movements": {},
+            "locations": {},
             "data": []
             }
     with open(filename, "w") as f:
@@ -49,9 +50,28 @@ data_filename = "data.json"
 if argv[1] == "new":
     generate_data_file(data_filename)
 elif argv[1] == "import":
+    set_category = False
+    set_location = False
+    category = None
+    location = None
+    for arg in argv:
+        if set_category:
+            category = arg
+            set_category = False
+        elif set_location:
+            location = arg
+            set_location = False
+        if arg == "--category":
+            set_category = True
+        elif arg == "--location":
+            set_location = True
+    if not category:
+        category = input("Category: ")
+    if not location:
+        location = input("Location: ")
     with open(data_filename, "r") as f:
         data_file = json.loads(f.read())
-    import_csv(data_file, argv[2])
+    import_csv(data_file, argv[-1])
     with open(data_filename, "w") as f:
         f.write(json.dumps(data_file))
 else:
