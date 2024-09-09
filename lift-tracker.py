@@ -18,7 +18,7 @@ def get_movement_id(movements, movement):
             return index
     return None
 
-def import_csv(data_file, filename):
+def import_csv(category, location, filename):
     with open(filename, "r") as f:
         csv_data = f.readlines()
     header_data = csv_data.pop(0)
