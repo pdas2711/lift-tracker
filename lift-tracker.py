@@ -18,7 +18,7 @@ def get_movement_id(movements, movement):
             return index
     return None
 
-def import_csv(category, location, filename):
+def import_csv(data_file, location, filename):
     with open(filename, "r") as f:
         csv_data = f.readlines()
     header_data = csv_data.pop(0)
@@ -28,9 +28,10 @@ def import_csv(category, location, filename):
                     "date": None,
                     "movement": None,
                     "average_metric": None,
-                    "sets": "Not Available"
+                    "sets": "Not Available",
+                    "location": location
             }
-            if column == "DATE":
+            if col_index == 1:
                 entry["date"] = column
             else:
                 entry["movement"] = get_movement_id(data_file["movements"], column)
@@ -50,28 +51,19 @@ data_filename = "data.json"
 if argv[1] == "new":
     generate_data_file(data_filename)
 elif argv[1] == "import":
-    set_group = False
     set_location = False
-    group = None
     location = None
     for arg in argv:
-        if set_group:
-            group = arg
-            set_group = False
-        elif set_location:
+        if set_location:
             location = arg
             set_location = False
-        if arg == "--group":
-            set_group = True
-        elif arg == "--location":
+        if arg == "--location":
             set_location = True
-    if not group:
-        group = input("Group: ")
     if not location:
         location = input("Location: ")
     with open(data_filename, "r") as f:
         data_file = json.loads(f.read())
-    import_csv(data_file, argv[-1])
+    import_csv(data_file, location, argv[-1])
     with open(data_filename, "w") as f:
         f.write(json.dumps(data_file))
 else:
