@@ -1,17 +1,6 @@
 import json
 from sys import argv
 
-movements = {
-                "0": {
-                    "name": "Incline Bench Smith",
-                    "group": "Chest"
-                    },
-                "1": {
-                    "name": "Seated Pec",
-                    "group": "Chest"
-                    }
-                }
-
 def get_movement_id(movements, movement):
     for index in movements:
         if movements[index]["name"] == movement:
