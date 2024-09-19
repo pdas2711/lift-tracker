@@ -2,6 +2,7 @@
 
 import json
 from sys import argv
+from time import strptime
 
 def add_movement_id(movements, movement, group):
     movement_entry = {
@@ -57,6 +58,12 @@ def import_csv(data_file, location, group, filename):
                 entry["movement"] = movement_id
                 entry["average_metric"] = record.split(",")[col_index]
             data_file["data"].append(entry)
+
+def sort(data):
+    def quick_sort(sub_array, i, j, p):
+        p = len(sub_array) - 1
+        while j < p:
+    quick_sort(data, i = -1, j = 0)
 
 def generate_data_file(filename):
     data_file = {
