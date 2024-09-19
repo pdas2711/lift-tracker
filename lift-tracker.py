@@ -11,14 +11,14 @@ def get_movement_id(movements, movement):
                 "name": movement
             }
     movements[str(len(movements) + 1)] = movement_entry
-    return str(len(movements) + 1)
+    return str(len(movements))
 
 def get_location_id(locations, location):
     for index in locations:
         if locations[index] == location:
             return index
     locations[str(len(locations) + 1)] = location
-    return str(len(locations) + 1)
+    return str(len(locations))
 
 def import_csv(data_file, location, filename):
     with open(filename, "r") as f:
