@@ -59,6 +59,14 @@ def import_csv(data_file, location, group, filename):
                 entry["average_metric"] = record.split(",")[col_index]
             data_file["data"].append(entry)
 
+def compare_date(date1, date2):
+    date1_form = strptime(date1, "%m/%d/%Y")
+    date2_form = strptime(date2, "%m/%d/%Y")
+    if date1_form > date2_form:
+        return True
+    else:
+        return False
+
 def sort(data):
     def quick_sort(sub_array, i, j, p):
         p = len(sub_array) - 1
