@@ -11,6 +11,10 @@ def add_movement_id(movements, movement, group):
     movements[str(len(movements) + 1)] = movement_entry
     return str(len(movements))
 
+def add_location_id(locations, location):
+    locations[str(len(locations) + 1)] = location
+    return str(len(locations))
+
 def get_movement_id(movements, movement):
     for index in movements:
         if movements[index]["name"] == movement:
@@ -21,8 +25,7 @@ def get_location_id(locations, location):
     for index in locations:
         if locations[index] == location:
             return index
-    locations[str(len(locations) + 1)] = location
-    return str(len(locations))
+    return None
 
 def import_csv(data_file, location, group, filename):
     with open(filename, "r") as f:
@@ -31,12 +34,15 @@ def import_csv(data_file, location, group, filename):
     for record in csv_data:
         date = None
         for col_index, column in enumerate(header_data.split(",")):
+            location_id = get_location_id(data_file["locations"], location)
+            if not location_id:
+                location_id = add_location_id(data_file["locations"], location)
             entry = {
                     "date": None,
                     "movement": None,
                     "average_metric": None,
                     "sets": "Not Available",
-                    "location": get_location_id(data_file["locations"], location)
+                    "location": location_id
             }
             if col_index == 0:
                 date = record.split(",")[col_index]
