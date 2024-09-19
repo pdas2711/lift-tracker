@@ -22,7 +22,7 @@ def get_location_id(locations, location):
 
 def import_csv(data_file, location, filename):
     with open(filename, "r") as f:
-        csv_data = f.readlines()
+        csv_data = f.read().splitlines()
     header_data = csv_data.pop(0)
     for record in csv_data:
         date = None
@@ -36,6 +36,8 @@ def import_csv(data_file, location, filename):
             }
             if col_index == 0:
                 date = record.split(",")[col_index]
+                continue
+            elif record.split(",")[col_index] == "":
                 continue
             else:
                 entry["date"] = date
