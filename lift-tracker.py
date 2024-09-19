@@ -34,7 +34,7 @@ def import_csv(data_file, location, filename):
                     "sets": "Not Available",
                     "location": get_location_id(data_file["locations"], location)
             }
-            if col_index == 1:
+            if col_index == 0:
                 date = record.split(",")[col_index]
                 continue
             else:
