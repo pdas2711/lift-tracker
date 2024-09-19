@@ -53,7 +53,7 @@ def import_csv(data_file, location, group, filename):
                 entry["date"] = date
                 movement_id = get_movement_id(data_file["movements"], column)
                 if not movement_id:
-                    movement_id = add_movement_id(data_file["movements"], header_data.split(",")[col_index], group)
+                    movement_id = add_movement_id(data_file["movements"], column, group)
                 entry["movement"] = movement_id
                 entry["average_metric"] = record.split(",")[col_index]
             data_file["data"].append(entry)
