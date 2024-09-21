@@ -89,6 +89,16 @@ def add_entry(data_file):
         print("\nAdding '" + movement_opt + "'.")
         group = input("Group: ")
         add_movement_id(data_file["movements"], movement_opt, group)
+    print("\nLast metric")
+    last_date = "Not Available"
+    last_avg_metric = "Not Available"
+    for entry_index in range(len(data_file["data"] - 1), -1, -1):
+        last_entry = data_file["data"][entry_index]
+        if last_entry["movement"] == movement_opt:
+            last_date = last_entry["last_date"]
+            last_avg_metric = last_entry["average_metric"]
+    print("Date: " + last_date)
+    print("Metric: " + last_avg_metric)
 
 def generate_data_file(filename):
     data_file = {
