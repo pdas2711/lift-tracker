@@ -100,6 +100,18 @@ def add_entry(data_file):
     print("Date: " + last_date)
     print("Metric: " + last_avg_metric)
 
+    print("\nChoose a location.")
+    current_loc = None
+    for location_index in data_file["locations"]:
+        print(location_index + ". " + data_file["locations"][location_index])
+    location_opt = input("Enter Existing Location or type New Location")
+    if location_opt not in data_file["locations"]:
+        print("\nAdding '" + location_opt + "'.")
+        data_file["locations"][str(len(data_file) + 1)] = location_opt
+        current_loc = location_opt
+    else:
+        current_loc = data_file["locations"][location_opt]
+
 def generate_data_file(filename):
     data_file = {
             "movements": {},
