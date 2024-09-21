@@ -82,11 +82,8 @@ def add_entry(data_file):
     print("\nChoose a movement.")
     for movement_index in data_file["movements"]:
         print(movement_index + ". " + data_file["movements"][movement_index])
-    print("0. Exit")
     movement_opt = input("\nEnter Existing Movement or type New Movement: ")
-    if movement_opt == "0":
-        exit()
-    elif movement_opt not in data_file["movements"]:
+    if movement_opt not in data_file["movements"]:
         print("\nAdding '" + movement_opt + "'.")
         group = input("Group: ")
         add_movement_id(data_file["movements"], movement_opt, group)
