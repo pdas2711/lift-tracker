@@ -2,7 +2,7 @@
 
 import json
 from sys import argv
-from time import strptime
+from datetime import datetime
 
 def add_movement_id(movements, movement, group):
     movement_entry = {
@@ -58,20 +58,25 @@ def import_csv(data_file, location, group, filename):
                 entry["movement"] = movement_id
                 entry["average_metric"] = record.split(",")[col_index]
             data_file["data"].append(entry)
+            bubble_sort(data_file["data"])
 
-def compare_date(date1, date2):
-    date1_form = strptime(date1, "%m/%d/%Y")
-    date2_form = strptime(date2, "%m/%d/%Y")
+def compare_dates(date1, date2):
+    date1_form = datetime(int("20" + date1.split("/")[2]), int(date1.split("/")[0]), int(date1.split("/")[1]))
+    date2_form = datetime(int("20" + date2.split("/")[2]), int(date2.split("/")[0]), int(date2.split("/")[1]))
     if date1_form > date2_form:
         return True
     else:
         return False
 
-def sort(data):
-    def quick_sort(sub_array, i, j, p):
-        p = len(sub_array) - 1
-        while j < p:
-    quick_sort(data, i = -1, j = 0)
+def bubble_sort(array):
+    for i in range(len(array)):
+        swapped = False
+        for j in range(0, len(array) - i - 1):
+            if compare_dates(array[j]["date"], array[j + 1]["date"]):
+                array[j], array[j + 1] = array[j + 1], array[j]
+                swapped = True
+        if not swapped:
+            break
 
 def generate_data_file(filename):
     data_file = {
