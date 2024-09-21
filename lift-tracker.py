@@ -79,6 +79,7 @@ def bubble_sort(array):
             break
 
 def add_entry(data_file):
+    print("\nChoose a movement.")
     for movement_index in data_file["movements"]:
         print(movement_index + ". " + data_file["movements"][movement_index])
     print("0. Exit")
