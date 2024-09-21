@@ -109,6 +109,27 @@ def add_entry(data_file):
         current_loc = location_opt
     else:
         current_loc = data_file["locations"][location_opt]
+    print("\nEnter the rep and metric amount. When done, enter '0' to exit.")
+    sets = []
+    set_entry = {
+            "weight": None,
+            "reps": None
+            }
+    metric_opt = None
+    metric_weight = False
+    while metric_opt != "0":
+        if metric_weight:
+            metric_opt = input("Weight: ")
+            set_entry["weight"] = metric_opt
+            metric_weight = not metric_weight
+        else:
+            metric_opt = input("Reps: ")
+            set_entry["reps"] = metric_opt
+            metric_weight = not metric_weight
+        if set_entry["weight"] and set_entry["reps"]:
+            sets.append(set_entry)
+            set_entry["weight"] = None
+            set_entry["reps"] = None
 
 def generate_data_file(filename):
     data_file = {
