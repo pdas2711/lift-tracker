@@ -130,6 +130,13 @@ def add_entry(data_file):
             sets.append(set_entry)
             set_entry["weight"] = None
             set_entry["reps"] = None
+    new_entry = {
+            "date": datetime.now(),
+            "movement": movement_opt,
+            "average_metric": calc_avg_metric(sets),
+            "sets": sets
+            }
+    print("\nReview")
 
 def generate_data_file(filename):
     data_file = {
