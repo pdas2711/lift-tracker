@@ -138,6 +138,16 @@ def add_entry(data_file):
             }
     print("\nReview")
 
+def calc_avg_metric(sets):
+    same_weight = True
+    first_weight = sets[0]["weight"]
+    for entry_set in sets:
+        if first_weight == entry_set["weight"]:
+            continue
+        else:
+            same_weight = False
+            break
+
 def generate_data_file(filename):
     data_file = {
             "movements": {},
