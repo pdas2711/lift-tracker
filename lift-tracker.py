@@ -137,6 +137,14 @@ def add_entry(data_file):
             "sets": sets
             }
     print("\nReview")
+    print(new_entry)
+    while conf_prompt:
+        conf_new_entry_input = input("Confirm? (Y/n): ")
+        if conf_new_entry_input == "Y" or conf_new_entry_input == "y":
+            break
+        elif conf_new_entry_input == "N" or conf_new_entry_input == "n":
+            exit()
+    data_file["data"].append(new_entry)
 
 def calc_avg_metric(sets):
     same_weight = True
