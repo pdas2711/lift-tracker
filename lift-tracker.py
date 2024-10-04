@@ -210,6 +210,12 @@ elif argv[1] == "import":
     import_csv(data_file, location, group, argv[-1])
     with open(data_filename, "w") as f:
         f.write(json.dumps(data_file))
+elif argv[1] == "add":
+    with open(data_filename, "r") as f:
+        data_file = json.loads(f.read())
+    add_entry(data_file)
+    with open(data_filename, "w") as f:
+        f.write(json.dumps(data_file))
 else:
     print("Error: Unknown argument '" + argv[1] + "'")
     exit()
