@@ -147,6 +147,23 @@ def calc_avg_metric(sets):
         else:
             same_weight = False
             break
+    average_weight = None
+    if same_weight:
+        most_reps = 0
+        sum_weight = 0
+        for entry_set in sets:
+            sum_weight += entry_set["weight"] * entry_set["reps"]
+            if entry_set["reps"] > most_reps:
+                most_reps = entry_sets["reps"]
+        average_weight = sum_weight / (most_reps * len(sets))
+    else:
+        sum_reps = 0
+        sum_weight = 0
+        for entry_set in sets:
+            sum_weight += entry_set["weight"] * entry_set["reps"]
+            sum_reps += entry_set["reps"]
+        average_weight = sum_weight / sum_reps
+    return average_weight
 
 def generate_data_file(filename):
     data_file = {
