@@ -46,7 +46,13 @@ def import_csv(data_file, location, group, filename):
                     "location": location_id
             }
             if col_index == 0:
-                date = record.split(",")[col_index]
+                date_fields = []
+                for date_field in record.split(",")[col_index].split("/"):
+                    date_fields.append(date_field)
+                year = "20" + date_fields[2]
+                month = date_fields[0]
+                day = date_fields[1]
+                date = year + "/" + month + "/" + day
                 continue
             elif record.split(",")[col_index] == "":
                 continue
@@ -61,8 +67,8 @@ def import_csv(data_file, location, group, filename):
             bubble_sort(data_file["data"])
 
 def compare_dates(date1, date2):
-    date1_form = datetime(int("20" + date1.split("/")[2]), int(date1.split("/")[0]), int(date1.split("/")[1]))
-    date2_form = datetime(int("20" + date2.split("/")[2]), int(date2.split("/")[0]), int(date2.split("/")[1]))
+    date1_form = datetime(int(date1.split("/")[0]), int(date1.split("/")[1]), int(date1.split("/")[2]))
+    date2_form = datetime(int(date2.split("/")[0]), int(date2.split("/")[1]), int(date2.split("/")[2]))
     if date1_form > date2_form:
         return True
     else:
