@@ -81,7 +81,7 @@ def bubble_sort(array):
 def add_entry(data_file):
     print("\nChoose a movement.")
     for movement_index in data_file["movements"]:
-        print(movement_index + ". " + data_file["movements"][movement_index])
+        print(movement_index + ". " + data_file["movements"][movement_index]["name"])
     movement_opt = input("\nEnter Existing Movement or type New Movement: ")
     if movement_opt not in data_file["movements"]:
         print("\nAdding '" + movement_opt + "'.")
@@ -90,10 +90,10 @@ def add_entry(data_file):
     print("\nLast metric")
     last_date = "Not Available"
     last_avg_metric = "Not Available"
-    for entry_index in range(len(data_file["data"] - 1), -1, -1):
+    for entry_index in range(len(data_file["data"]) - 1, -1, -1):
         last_entry = data_file["data"][entry_index]
         if last_entry["movement"] == movement_opt:
-            last_date = last_entry["last_date"]
+            last_date = last_entry["date"]
             last_avg_metric = last_entry["average_metric"]
     print("Date: " + last_date)
     print("Metric: " + last_avg_metric)
@@ -102,7 +102,7 @@ def add_entry(data_file):
     current_loc = None
     for location_index in data_file["locations"]:
         print(location_index + ". " + data_file["locations"][location_index])
-    location_opt = input("Enter Existing Location or type New Location")
+    location_opt = input("Enter Existing Location or type New Location: ")
     if location_opt not in data_file["locations"]:
         print("\nAdding '" + location_opt + "'.")
         data_file["locations"][str(len(data_file) + 1)] = location_opt
@@ -115,38 +115,42 @@ def add_entry(data_file):
             "weight": None,
             "reps": None
             }
+    entry_date = str(datetime.now().year) + "/" + str(datetime.now().month) + "/" + str(datetime.now().day)
     metric_opt = None
     metric_weight = False
     while metric_opt != "0":
         if metric_weight:
             metric_opt = input("Weight: ")
-            set_entry["weight"] = metric_opt
+            set_entry["weight"] = int(metric_opt)
             metric_weight = not metric_weight
         else:
             metric_opt = input("Reps: ")
-            set_entry["reps"] = metric_opt
+            set_entry["reps"] = int(metric_opt)
             metric_weight = not metric_weight
         if set_entry["weight"] and set_entry["reps"]:
             sets.append(set_entry)
-            set_entry["weight"] = None
-            set_entry["reps"] = None
+            empty_entry = dict()
+            empty_entry["weight"] = None
+            empty_entry["reps"] = None
+            set_entry = empty_entry
     new_entry = {
-            "date": datetime.now(),
+            "date": entry_date,
             "movement": movement_opt,
             "average_metric": calc_avg_metric(sets),
             "sets": sets
             }
     print("\nReview")
     print(new_entry)
-    while conf_prompt:
+    while True:
         conf_new_entry_input = input("Confirm? (Y/n): ")
-        if conf_new_entry_input == "Y" or conf_new_entry_input == "y":
+        if conf_new_entry_input == "Y" or conf_new_entry_input == "y" or conf_new_entry_input == "":
             break
         elif conf_new_entry_input == "N" or conf_new_entry_input == "n":
             exit()
     data_file["data"].append(new_entry)
 
 def calc_avg_metric(sets):
+    print(sets)
     same_weight = True
     first_weight = sets[0]["weight"]
     for entry_set in sets:
@@ -162,7 +166,7 @@ def calc_avg_metric(sets):
         for entry_set in sets:
             sum_weight += entry_set["weight"] * entry_set["reps"]
             if entry_set["reps"] > most_reps:
-                most_reps = entry_sets["reps"]
+                most_reps = entry_set["reps"]
         average_weight = sum_weight / (most_reps * len(sets))
     else:
         sum_reps = 0
