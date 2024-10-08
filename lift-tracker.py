@@ -93,7 +93,7 @@ def add_entry(data_file):
         print("\nAdding '" + movement_opt + "'.")
         group = input("Group: ")
         add_movement_id(data_file["movements"], movement_opt, group)
-    print("\nLast metric")
+    print("\nLast metric.")
     last_date = "Not Available"
     last_avg_metric = "Not Available"
     for entry_index in range(len(data_file["data"]) - 1, -1, -1):
@@ -102,6 +102,7 @@ def add_entry(data_file):
             last_date = last_entry["date"]
             last_avg_metric = last_entry["average_metric"]
     print("Date: " + last_date)
+    print("Movement: " + data_file["movements"][movement_opt]["name"])
     print("Metric: " + last_avg_metric)
 
     print("\nChoose a location.")
@@ -145,7 +146,7 @@ def add_entry(data_file):
             "average_metric": calc_avg_metric(sets),
             "sets": sets
             }
-    print("\nReview")
+    print("\nReview.")
     print(new_entry)
     while True:
         conf_new_entry_input = input("Confirm? (Y/n): ")
