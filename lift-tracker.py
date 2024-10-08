@@ -156,7 +156,6 @@ def add_entry(data_file):
     data_file["data"].append(new_entry)
 
 def calc_avg_metric(sets):
-    print(sets)
     same_weight = True
     first_weight = sets[0]["weight"]
     for entry_set in sets:
