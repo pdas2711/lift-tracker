@@ -123,7 +123,7 @@ def add_entry(data_file):
             }
     entry_date = str(datetime.now().year) + "/" + str(datetime.now().month) + "/" + str(datetime.now().day)
     metric_opt = None
-    metric_weight = False
+    metric_weight = True
     while metric_opt != "0":
         if metric_weight:
             metric_opt = input("Weight: ")
