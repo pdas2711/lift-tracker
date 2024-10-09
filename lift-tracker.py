@@ -6,6 +6,8 @@ from datetime import datetime
 from datetime import timezone
 
 def add_movement_id(movements, movement, group):
+    movement = format_name(movement)
+    group = format_name(group)
     movement_entry = {
                 "name": movement,
                 "group": group
@@ -14,16 +16,19 @@ def add_movement_id(movements, movement, group):
     return str(len(movements))
 
 def add_location_id(locations, location):
+    location = format_name(location)
     locations[str(len(locations) + 1)] = location
     return str(len(locations))
 
 def get_movement_id(movements, movement):
+    movement = format_name(movement)
     for index in movements:
         if movements[index]["name"] == movement:
             return index
     return None
 
 def get_location_id(locations, location):
+    location = format_name(location)
     for index in locations:
         if locations[index] == location:
             return index
