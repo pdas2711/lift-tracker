@@ -139,7 +139,7 @@ def add_entry(data_file):
             set_entry["weight"] = int(metric_weight)
             set_entry["reps"] = int(metric_rep)
             set_entry["time"] = time.strftime("%H:%M:%S")
-            set_entry["duration"] = str(end_time - time).split(".")[0]
+            set_entry["duration"] = str((end_time - time).total_seconds())
             print("Duration: " + set_entry["duration"])
             sets.append(set_entry)
             empty_entry = dict()
