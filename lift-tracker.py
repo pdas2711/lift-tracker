@@ -3,6 +3,7 @@
 import json
 from sys import argv
 from datetime import datetime
+from datetime import timezone
 
 def add_movement_id(movements, movement, group):
     movement_entry = {
@@ -104,7 +105,6 @@ def add_entry(data_file):
     print("Date: " + last_date)
     print("Movement: " + data_file["movements"][movement_opt]["name"])
     print("Metric: " + last_avg_metric)
-
     print("\nChoose a location.")
     current_loc = None
     for location_index in data_file["locations"]:
@@ -119,27 +119,38 @@ def add_entry(data_file):
     print("\nEnter the rep and metric amount. When done, enter '0' to exit.")
     sets = []
     set_entry = {
+            "time": None,
+            "duration": None,
             "weight": None,
             "reps": None
             }
-    entry_date = str(datetime.now().year) + "/" + str(datetime.now().month) + "/" + str(datetime.now().day)
-    metric_opt = None
-    metric_weight = True
-    while metric_opt != "0":
-        if metric_weight:
-            metric_opt = input("Weight: ")
-            set_entry["weight"] = int(metric_opt)
-            metric_weight = not metric_weight
-        else:
-            metric_opt = input("Reps: ")
-            set_entry["reps"] = int(metric_opt)
-            metric_weight = not metric_weight
-        if set_entry["weight"] and set_entry["reps"]:
+    set_opt = None
+    entry_time = datetime.now(timezone.utc)
+    while set_opt != "0":
+        print("\n1. Add New Set")
+        print("0. Done")
+        set_opt = input("Option: ")
+        if set_opt == "1":
+            time = datetime.now(timezone.utc)
+            print("Current Time: " + time.strftime("%H:%M:%S"))
+            metric_weight = input("Weight: ")
+            metric_rep = input("Reps: ")
+            end_time = datetime.now(timezone.utc)
+            set_entry["weight"] = int(metric_weight)
+            set_entry["reps"] = int(metric_rep)
+            set_entry["time"] = time.strftime("%H:%M:%S")
+            set_entry["duration"] = str(end_time - time).split(".")[0]
+            print("Duration: " + set_entry["duration"])
             sets.append(set_entry)
             empty_entry = dict()
+            empty_entry["time"] = None
+            empty_entry["duration"] = None
             empty_entry["weight"] = None
             empty_entry["reps"] = None
             set_entry = empty_entry
+        elif set_opt == "0":
+            break
+    entry_date = str(entry_time.year) + "/" + str(entry_time.month) + "/" + str(entry_time.day)
     new_entry = {
             "date": entry_date,
             "movement": movement_opt,
