@@ -85,6 +85,14 @@ def bubble_sort(array):
         if not swapped:
             break
 
+def format_name(string):
+    string_list = string.split(" ")
+    formatted_string = ""
+    for word in string_list:
+        formatted_string += word.capitalize() + " "
+    formatted_string = formatted_string[:-1]
+    return formatted_string
+
 def add_entry(data_file):
     print("\nChoose a movement.")
     for movement_index in data_file["movements"]:
