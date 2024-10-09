@@ -93,7 +93,7 @@ def add_entry(data_file):
     if movement_opt not in data_file["movements"]:
         print("\nAdding '" + movement_opt + "'.")
         group = input("Group: ")
-        add_movement_id(data_file["movements"], movement_opt, group)
+        movement_opt = str(add_movement_id(data_file["movements"], movement_opt, group))
     print("\nLast metric.")
     last_date = "Not Available"
     last_avg_metric = "Not Available"
