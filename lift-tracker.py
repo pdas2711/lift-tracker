@@ -160,6 +160,7 @@ def add_entry(data_file):
     entry_date = str(entry_time.year) + "/" + str(entry_time.month) + "/" + str(entry_time.day)
     new_entry = {
             "date": entry_date,
+            "location": location_opt,
             "movement": movement_opt,
             "average_metric": calc_avg_metric(sets),
             "sets": sets
