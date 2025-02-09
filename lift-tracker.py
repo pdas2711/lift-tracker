@@ -165,9 +165,13 @@ def add_entry(data_file):
             "sets": sets
             }
     print("\nReview.")
-    print(new_entry)
+    print("Movement: " + data_file["movements"][movement_opt]["name"] + "\n")
+    for set_num,set_entry in enumerate(new_entry["sets"]):
+        print("Set #" + str(set_num + 1) + ":")
+        print("Weight: " + str(set_entry["weight"]))
+        print("Reps: " + str(set_entry["reps"]))
     while True:
-        conf_new_entry_input = input("Confirm? (Y/n): ")
+        conf_new_entry_input = input("\nConfirm? (Y/n): ")
         if conf_new_entry_input == "Y" or conf_new_entry_input == "y" or conf_new_entry_input == "":
             break
         elif conf_new_entry_input == "N" or conf_new_entry_input == "n":
