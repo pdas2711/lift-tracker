@@ -104,7 +104,7 @@ def add_entry(data_file):
             last_avg_metric = last_entry["average_metric"]
     print("Date: " + last_date)
     print("Movement: " + data_file["movements"][movement_opt]["name"])
-    print("Metric: " + last_avg_metric)
+    print("Metric: " + str(last_avg_metric))
     print("\nChoose a location.")
     current_loc = None
     for location_index in data_file["locations"]:
@@ -128,19 +128,27 @@ def add_entry(data_file):
     entry_time = datetime.now(timezone.utc)
     while set_opt != "0":
         print("\n1. Add New Set")
+        print("2. Add New Set (without time)")
         print("0. Done")
         set_opt = input("Option: ")
-        if set_opt == "1":
+        add_time = True
+        if set_opt == "2":
+            add_time = False
+        if set_opt == "1" or set_opt == "2":
             time = datetime.now(timezone.utc)
             print("Current Time: " + time.strftime("%H:%M:%S"))
             metric_weight = input("Weight: ")
             metric_rep = input("Reps: ")
             end_time = datetime.now(timezone.utc)
-            set_entry["weight"] = int(metric_weight)
+            set_entry["weight"] = float(metric_weight)
             set_entry["reps"] = int(metric_rep)
-            set_entry["time"] = time.strftime("%H:%M:%S")
-            set_entry["duration"] = str((end_time - time).total_seconds())
-            print("Duration: " + set_entry["duration"])
+            if add_time:
+                set_entry["time"] = time.strftime("%H:%M:%S")
+                set_entry["duration"] = str((end_time - time).total_seconds())
+                print("Duration: " + set_entry["duration"])
+            else:
+                set_entry["time"] = None
+                set_entry["duration"] = None
             sets.append(set_entry)
             empty_entry = dict()
             empty_entry["time"] = None
@@ -204,6 +212,11 @@ def generate_data_file(filename):
         f.write(json.dumps(data_file))
 
 data_filename = "data.json"
+if len(argv) == 1:
+    print("Usage:")
+    print(" new - generate a new dataset")
+    print(" add - enter an entry")
+    exit()
 if argv[1] == "new":
     generate_data_file(data_filename)
 elif argv[1] == "import":
