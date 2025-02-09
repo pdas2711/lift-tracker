@@ -112,8 +112,7 @@ def add_entry(data_file):
     location_opt = input("Enter Existing Location or type New Location: ")
     if location_opt not in data_file["locations"]:
         print("\nAdding '" + location_opt + "'.")
-        data_file["locations"][str(len(data_file) + 1)] = location_opt
-        current_loc = location_opt
+        current_loc = str(add_location_id(data_file["locations"], location_opt))
     else:
         current_loc = data_file["locations"][location_opt]
     print("\nEnter the rep and metric amount. When done, enter '0' to exit.")
