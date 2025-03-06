@@ -102,6 +102,7 @@ def add_entry(data_file):
         if last_entry["movement"] == movement_opt:
             last_date = last_entry["date"]
             last_avg_metric = last_entry["average_metric"]
+            break
     print("Date: " + last_date)
     print("Movement: " + data_file["movements"][movement_opt]["name"])
     print("Metric: " + str(last_avg_metric))
