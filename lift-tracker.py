@@ -208,7 +208,10 @@ def calc_avg_metric(sets):
     return average_weight
 
 def generate_data_file(filename):
+    description = input("Give a description: ")
     data_file = {
+            "version": "1.0.0",
+            "description": description,
             "movements": {},
             "locations": {},
             "data": []
