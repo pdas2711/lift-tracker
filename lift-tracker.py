@@ -65,7 +65,7 @@ def import_csv(data_file, location, group, filename):
                 entry["movement"] = movement_id
                 entry["average_metric"] = float(record.split(",")[col_index])
             data_file["data"].append(entry)
-            bubble_sort(data_file["data"])
+            sort_dates(data_file["data"])
 
 def compare_dates(date1, date2):
     date1_form = datetime(int(date1.split("/")[0]), int(date1.split("/")[1]), int(date1.split("/")[2]))
@@ -75,7 +75,7 @@ def compare_dates(date1, date2):
     else:
         return False
 
-def bubble_sort(array):
+def sort_dates(array):
     for i in range(len(array)):
         swapped = False
         for j in range(0, len(array) - i - 1):
