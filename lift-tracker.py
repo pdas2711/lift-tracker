@@ -5,6 +5,13 @@ from sys import argv
 from datetime import datetime
 from datetime import timezone
 
+def sort_movements(movements):
+    sorted_movement_names = []
+    for movement_index in movements:
+        sorted_movement_names.append(movements[movement_index]["name"])
+    sorted_movement_names.sort()
+    return sorted_movement_names
+
 def add_movement_id(movements, movement, group):
     movement_entry = {
                 "name": movement,
@@ -86,12 +93,16 @@ def sort_dates(array):
             break
 
 def add_entry(data_file):
+    sorted_movements = sort_movements(data_file["movements"])
     print("\nChoose a movement.")
-    for movement_index in data_file["movements"]:
-        print(movement_index + ". " + data_file["movements"][movement_index]["name"])
-    movement_opt = input("\nEnter Existing Movement or type New Movement: ")
-    if movement_opt not in data_file["movements"]:
-        print("\nAdding '" + movement_opt + "'.")
+    for index, movement_entry in enumerate(sorted_movements):
+        print(str(index + 1) + ". " + movement_entry)
+    movement_selection = input("\nEnter Existing Movement or type New Movement: ")
+    movement_opt = None
+    if movement_selection.isdigit():
+        movement_opt = get_movement_id(data_file["movements"], sorted_movements[int(movement_selection) - 1])
+    if not movement_opt:
+        print("\nAdding '" + movement_selection + "'.")
         group = input("Group: ")
         movement_opt = str(add_movement_id(data_file["movements"], movement_opt, group))
     print("\nLast metric.")
