@@ -127,6 +127,7 @@ def add_entry(data_file):
         current_loc = str(add_location_id(data_file["locations"], location_opt))
     else:
         current_loc = data_file["locations"][location_opt]
+    entry_date = input("Set date? (Leave empty to use current date): ")
     print("\nEnter the rep and metric amount. When done, enter '0' to exit.")
     sets = []
     set_entry = {
@@ -136,7 +137,6 @@ def add_entry(data_file):
             "reps": None
             }
     set_opt = None
-    entry_time = datetime.now(timezone.utc)
     while set_opt != "0":
         print("\n1. Add New Set")
         print("2. Add New Set (without time)")
@@ -169,7 +169,9 @@ def add_entry(data_file):
             set_entry = empty_entry
         elif set_opt == "0":
             break
-    entry_date = str(entry_time.year) + "/" + str(entry_time.month) + "/" + str(entry_time.day)
+    if entry_date == "":
+        entry_time = datetime.now(timezone.utc)
+        entry_date = str(entry_time.year) + "/" + str(entry_time.month) + "/" + str(entry_time.day)
     new_entry = {
             "date": entry_date,
             "location": location_opt,
